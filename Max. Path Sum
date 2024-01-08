@@ -1,0 +1,17 @@
+class Solution {
+    public int findSum(TreeNode root,int[] maxPath){
+        if(root == null) return 0;
+        int leftSum = Math.max(0,findSum(root.left,maxPath));
+        int rightSum = Math.max(0,findSum(root.right,maxPath));
+        maxPath[0] = Math.max(maxPath[0],root.val+leftSum+rightSum);
+        return root.val + Math.max(leftSum,rightSum);
+    }
+    public int maxPathSum(TreeNode root) {
+        int[] maxPath = new int[1];
+        maxPath[0] = Integer.MIN_VALUE;
+        if(root.left == null && root.right == null) return root.val;
+        int ans = findSum(root,maxPath);
+        return maxPath[0];
+        
+    }
+}
